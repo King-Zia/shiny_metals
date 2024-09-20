@@ -1,0 +1,64 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shiny Metals</title>
+    <script
+      src="https://unpkg.com/htmx.org@2.0.1"
+      integrity="sha384-QWGpdj554B4ETpJJC9z+ZHJcA/i59TyjxEPXiiUgN2WmTyV5OEZWCD6gQhgkdpB/"
+      crossorigin="anonymous"
+    ></script>
+
+    <link href="{% static 'css/output.css' %}" rel="stylesheet" />
+  </head>
+  <body class="bg-gray-600 h-screen flex items-center justify-center">
+    <div
+      class="bg-white p-8 rounded-lg shadow-md w-2/6 h-5/6 flex flex-col justify-center"
+    >
+      <!--form starts-->
+      <form hx-post="/process_selection/" hx-target="#result">
+        <!--metal dropdown-->
+        <!-- Metal Dropdown -->
+        <select
+          id="metal_select"
+          name="selected_metal"
+          class="block w-full p-2 text-lg border border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+          hx-target="#metal_select"
+          hx-swap="outerHTML"
+          hx-trigger="change, load"
+        >
+          <option disabled selected value="">Select a metal</option>
+          {% for i in metal %}
+          <option value="{{ i }}">{{ i }}</option>
+          {% endfor %}
+        </select>
+
+        <!-- Currency Dropdown -->
+        <select
+          id="cu_select"
+          name="selected_cu"
+          class="block w-full p-2 text-lg border border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+          hx-target="#cu_select"
+          hx-swap="outerHTML"
+          hx-trigger="change, load"
+        >
+          <option disable selected value="">Select a currency</option>
+          {% for i in cu %}
+          <option value="{{ i }}">{{ i }}</option>
+          {% endfor %}
+        </select>
+
+        <!--Submit button-->
+        <button
+          type="submit"
+          class="block w-full p-2 text-lg border border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+        >
+          Submit
+        </button>
+        <div id="result" class="mt-5">Pls choose</div>
+      </form>
+    </div>
+  </body>
+</html>
